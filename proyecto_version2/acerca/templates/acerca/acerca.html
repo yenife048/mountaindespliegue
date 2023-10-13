@@ -1,0 +1,70 @@
+{% extends 'core/base.html'%}
+
+{% load static %}
+<title>{% block title %}Mountain Burger{% endblock %}</title>
+
+{% block content %}
+
+
+  <!-- about section -->
+  <section class="about_section layout_padding">
+    <p class="volver-menu-acerca"><a href="{% url 'inicio' %}"><- Volver Al Menú</a></p>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 ">
+          <div class="img-box">
+            <img src="{% static 'core/img/acerca-de.jpeg'%}" alt="">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="detail-box">
+            <div class="heading_container">
+              <h2>
+                {{contenidos3.title}}
+              </h2>
+            </div>
+            <p>
+              {{contenidos3.contenido}}
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6 ">
+          <div class="img-box">
+            <img src="{% static 'core/img/mision.png'%}" alt="">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="detail-box">
+            <div class="heading_container">
+              <h2>
+                {{contenidos2.title}}
+              </h2>
+            </div>
+            <p>
+              {{contenidos2.contenido}}
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6 ">
+          <div class="img-box">
+            <img src="{% static 'core/img/vision.png'%}" alt="">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="detail-box">
+            <div class="heading_container">
+              <h2>
+                {{contenidos1.title}}
+              </h2>
+            </div>
+            <p>
+              {{contenidos1.contenido}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- end about section -->
+  {% endblock %}

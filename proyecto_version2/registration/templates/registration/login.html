@@ -1,0 +1,68 @@
+{% extends 'core/base.html'%}
+
+{% load static %}
+<title>{% block title %}Iniciar Sesion{% endblock %}</title>
+
+{% block content %}
+<style>.errorlist{color:red;}</style>
+
+{% if messages %}
+<div id="messages" class="alert finalizar">
+  {% for message in messages %}
+    <div class="messages {% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</div>
+  {% endfor %}
+</div>
+{% endif %}
+
+
+<p class="volver-menu"><a href="{% url 'inicio' %}"><- Volver Al Menú</a></p>
+
+  {% if form.non_field_errors %}
+    <div class="alert error" id="myModal"> 
+      Usuario o contraseña incorrectos.
+    </div>
+  {% endif %}
+  
+        <section class="form-login">
+          <form action="" method="post">
+            {% csrf_token %}
+        <h5>Iniciar Sesión</h5>
+        <input type="text" name="username" autofocus maxlength="254" required id="id_username2" class="controls" placeholder="Nombre de usuario"/>
+        <input type="password" name="password" required id="id_password" class="controls" placeholder="Contraseña"/>      
+        <input type="submit" value="Acceder" class="buttons">  
+        <p><a href="{% url 'password_reset' %}">¿Olvidaste tu Contraseña?</a></p>
+        <p><a href="{% url 'signup'%}">Crear Cuenta</a></p>
+          </form>
+      </section>
+
+        <script>
+          // Ocultar el mensaje después de cierto tiempo
+          setTimeout(function() {
+            var messagesContainer = document.getElementById('messages');
+            if (messagesContainer) {
+              messagesContainer.style.display = 'none';
+            }
+          }, 2000);  // Ocultar después de 5 segundos (2000 milisegundos)
+
+
+           // Función para ocultar la ventana emergente después de cierto tiempo (en milisegundos)
+           const modal = document.getElementById("myModal");
+
+           function mostrarMensajeTemporal() {
+             modal.style.display = "block";
+           
+             setTimeout(() => {
+               ocultarMensaje();
+             }, 3000); // Cambia 3000 a la cantidad de milisegundos que deseas (3 segundos en este caso)
+           }
+           
+           function ocultarMensaje() {
+             modal.style.display = "none";
+           }
+           
+           // Llamamos a la función para mostrar el mensaje al cargar la página (simulando una condición de error)
+           mostrarMensajeTemporal();
+           
+
+        </script>
+{% endblock %}

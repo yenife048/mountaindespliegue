@@ -1,0 +1,144 @@
+<div class="container" id="table-car">
+  
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Nombre Producto</th>
+      <th scope="col">Cantidad</th>
+      <th scope="col">Subtotal</th>
+      <th scope="col">Foto</th>
+      <th scope="col">Acciones</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {% if request.session.carro.items %}
+      {% for key, value in request.session.carro.items %}
+    <tr>
+      <th>{{value.nombre}}</th>
+   <td>
+        <a href="{% url 'carro:restar' value.hamburguesas_id %}" class="boton_restar"><b>-</b></a>
+
+        <b class="caja_cant"  id="savedQuantity">{{ value.cantidad }}</b>
+
+        <a href="{% url 'carro:agregar_p' value.hamburguesas_id %}" class="boton_sumar"><b>+</b></a>
+    </td>
+    <td>$ {{value.precio|floatformat:3}} </td>
+   
+    <td><img src="{{value.imagen}}" alt="" width="75px"></td>
+
+    <td>
+
+        <a href="{% url 'carro:eliminar' value.hamburguesas_id  %}" class="boton_eliminar" ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="red" class="bi bi-x" viewBox="0 0 16 16">
+          <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+        </svg></a>
+    </td>
+    </tr>
+    
+      {% endfor %}
+      <tfoot>
+        <td colspan="5">
+          <a href="{% url 'carro:limpiar' %}" class="boton-vaciar btn btn-danger">Vaciar Carro</a>
+        </td>
+      </tfoot>
+      {% else %}
+      <tr>
+          <td colspan="5">
+              <div class="alert alert-danger text-center">
+                  SIN PRODUCTOS
+              </div>
+          </td>
+      </tr>
+  {% endif %}
+  </tbody>
+</table>
+
+
+  <h2 class="text-left mb-4" id="total-car">Total Carrito:</h2>
+  <table class="table table-bordered" id="total-table">
+    <tr>
+      <td class="text-left border">Subtotal:</td>
+      <td>$ {{importe_total_carro|floatformat:3}}</td>
+    </tr>
+    <tr>
+      <td class="text-left border">Total a pagar:</td>
+      <td>$ {{importe_total_carro|floatformat:3}}</td>
+    </tr>
+    <tr>
+      <td colspan="2">
+    {% if request.session.carro.items %}
+      {% if request.user.is_authenticated %}
+    <div class="boton-fina">
+      <a href="{% url 'pedido' %}" class="btn btn-warning">Finalizar Compra</a>
+    </div>
+    {% endif %}
+      {% endif %}
+  </td>
+    </tr>
+  </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+
+
+    function redirectToURL(url) {
+      window.location.href = url;
+    }
+
+    $(document).ready(function() {
+      // Maneja el clic en el botón de sumar
+      $(document).on("click", ".boton_sumar", function(event) {
+        event.preventDefault();
+        var url = $(this).attr("href");
+    
+        // Realiza una solicitud AJAX GET a la URL
+        $.get(url, function(data) {
+          // Actualiza solo la parte de la tabla del carrito
+          $("#table-car").html($(data).find("#table-car").html());
+        });
+      });
+    
+      // Maneja el clic en el botón de restar (puedes hacer lo mismo para eliminar)
+      $(document).on("click", ".boton_restar", function(event) {
+        event.preventDefault();
+        var url = $(this).attr("href");
+    
+        // Realiza una solicitud AJAX GET a la URL
+        $.get(url, function(data) {
+          // Actualiza solo la parte de la tabla del carrito
+          $("#table-car").html($(data).find("#table-car").html());
+        });
+      });
+
+      // Maneja el clic en el botón de sumar
+      $(document).on("click", ".boton_eliminar", function(event) {
+        event.preventDefault();
+        var url = $(this).attr("href");
+    
+        // Realiza una solicitud AJAX GET a la URL
+        $.get(url, function(data) {
+          // Actualiza solo la parte de la tabla del carrito
+          $("#table-car").html($(data).find("#table-car").html());
+        });
+      });
+
+      $(document).on("click", ".boton-vaciar", function(event) {
+        event.preventDefault();
+        var url = $(this).attr("href");
+    
+        // Realiza una solicitud AJAX GET a la URL
+        $.get(url, function(data) {
+          // Actualiza solo la parte de la tabla del carrito
+          $("#table-car").html($(data).find("#table-car").html());
+        });
+      });
+    });
+
+    
+   
+  </script>
+
+ 

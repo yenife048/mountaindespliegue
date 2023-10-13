@@ -1,0 +1,22 @@
+{% extends 'core/base.html'%}
+
+{% load static %}
+<title>{% block title %}Carrito de compras{% endblock %}</title>
+
+{% block content %}
+<p class="volver-menu"><a href="{% url 'inicio' %}"><- Volver Al Menú</a></p>
+
+<h1 class="carrito-title">Tu carrito</h1>
+
+<div class="caja_carrito text-center" id="carro_p">
+{% if request.user.is_authenticated %}
+    {% include "carro/widget.html" %}
+{% else %}
+
+    <p style="text-align: center;">¡¡INICIA SESIÓN PARA VER TU CARRITO!!</p>
+    <div class="boton-fina">
+        <a href="{% url 'login' %}" class="btn btn-warning" id="inicia-boton">INICIAR SESION</a>
+    </div>
+{% endif %}
+</div>
+{% endblock %}

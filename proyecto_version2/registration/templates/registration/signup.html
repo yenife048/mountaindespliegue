@@ -1,0 +1,119 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+<title>{% block title %}Formulario Registro{% endblock %}</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+
+{% block content %}
+
+<p class="volver-menu"><a href="{% url 'inicio' %}"><- Volver Al Menú</a></p>
+
+
+<form action="" method="POST" class="form-register">
+  {% csrf_token %}
+  <h4>Formulario Registro</h4>
+  
+  <!-- Render form fields manually -->
+  <div class="form-group">
+    <label for="{{ form.username.id_for_label }}">Usuario *</label>
+    {{ form.username }}
+  </div>
+
+  <div class="form-group">
+    <label for="{{ form.email.id_for_label }}">Correo Electrónico *</label>
+    {{ form.email }}
+    {% if form.email.errors %}
+      <small class="text-danger">{{ form.email.errors }}</small>
+    {% endif %}
+    {% if email_already_registered %}
+      <small class="text-danger">Este correo electrónico ya está registrado.</small>
+    {% endif %}
+  </div>
+  
+  
+  <div class="form-group">
+    <label for="{{ form.password1.id_for_label }}">Contraseña *</label>
+    {{ form.password1 }}
+  </div>
+  
+  <div class="form-group">
+    <label for="{{ form.password2.id_for_label }}">Confirmar Contraseña *</label>
+    {{ form.password2 }}
+    {% if form.password2.errors %}
+      <small class="text-danger">{{ form.password2.errors }}</small>
+    {% endif %}
+  </div>
+  
+  <div class="col-12">
+    <div class="form-check" >
+      <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required >
+      <a onclick="mostrarMensajeTerminos()"><label class="form-check-label" for="invalidCheck2">
+         Acepta los términos y condiciones
+      </label></a>
+    </div>
+  </div>
+
+<!--aqui va el modal de terminos y condiciones-->
+  <div id="terminos-mensaje" class="terminos-mensaje">
+    <span class="cerrar" onclick="cerrarMensajeTerminos()">x</span>
+    <h6 class="title-terminos">TERMINOS Y CONDICIONES</h6>
+    <p>
+      1. Si tienes un problema, contáctanos y lo resolveremos<br>
+      2. Tu información de pago está segura.<br>
+      3. Respetamos tu privacidad y nunca compartimos tus datos.<br>
+      ¡Gracias por elegirnos!</p>
+  </div>
+  <!--fin del modal de terminos y condiciones-->
+
+  <input type="submit" class="botons" id="button" value="Registrarse">
+  <a href="{% url 'login' %}" class="boton_regi">¿Ya tengo cuenta?</a>
+</form>
+
+
+<script>
+  const checkbox = document.getElementById("invalidCheck2");
+  const submitButton = document.getElementById("button");
+  const passwordInput = document.getElementById("id_password1");
+  
+  checkbox.addEventListener("change", function() {
+    if (this.checked) {
+      submitButton.style.opacity = "1";
+      submitButton.disabled = false;
+    } else {
+      submitButton.style.opacity = "0.5";
+      submitButton.disabled = true;
+    }
+  });
+
+  passwordInput.addEventListener("keyup", function() {
+    const passwordStrength = zxcvbn(passwordInput.value);
+    const passwordStrengthMeter = document.getElementById("password-strength-meter");
+    const passwordStrengthText = document.getElementById("password-strength-text");
+    
+    passwordStrengthMeter.value = passwordStrength.score;
+    passwordStrengthText.textContent = passwordStrength.feedback.suggestions.join(" ");
+    
+    if (passwordStrength.score < 2) {
+      passwordStrengthMeter.style.backgroundColor = "red";
+    } else if (passwordStrength.score < 4) {
+      passwordStrengthMeter.style.backgroundColor = "orange";
+    } else {
+      passwordStrengthMeter.style.backgroundColor = "green";
+    }
+  });
+
+
+
+  // Función para mostrar el mensaje de términos y condiciones
+function mostrarMensajeTerminos() {
+  document.getElementById("terminos-mensaje").style.display = "block";
+}
+
+// Función para cerrar el mensaje de términos y condiciones
+function cerrarMensajeTerminos() {
+  document.getElementById("terminos-mensaje").style.display = "none";
+}
+
+</script>
+
+{% endblock %}

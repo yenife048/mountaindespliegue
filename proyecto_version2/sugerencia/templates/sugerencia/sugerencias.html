@@ -1,0 +1,80 @@
+{% extends 'core/base.html'%}
+
+{% load static %}
+<title>{% block title %}Sugerencias{% endblock %}</title>
+
+{% block content %}
+
+
+ 
+
+  <!-- book section -->
+  <section class="book_section layout_padding">
+    
+<p class="volver-menu"><a href="{% url 'inicio' %}"><- Volver Al Menú</a></p>
+
+{% if 'ok' in request.GET %}
+<div class="alert sugerencia" id="myModal"> 
+  Tu sugerencia se envio correctamente
+</div>
+{% endif %}
+
+    <div class="container">
+      <div class="heading_container">
+        <h2>
+          SUGERENCIAS
+        </h2>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form_container">
+            <form action="" method="POST" >
+              {% csrf_token %}
+              <div>
+                {{form.name}}
+              </div>
+              <div class="email-sugeren">
+                {{form.email}}             
+               </div>
+              <div>
+                {{form.content}}              
+              </div>
+              <div>
+              </div>
+              <div class="btn_box">
+                <input type="submit" value="Enviar" >
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="map_container ">
+            <div id="googleMap"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end book section -->
+
+  <script>
+   const modal = document.getElementById("myModal");
+
+function mostrarMensajeTemporal() {
+  modal.style.display = "block";
+
+  setTimeout(() => {
+    ocultarMensaje();
+  }, 3000); // Cambia 3000 a la cantidad de milisegundos que deseas (3 segundos en este caso)
+}
+
+function ocultarMensaje() {
+  modal.style.display = "none";
+}
+
+// Llamamos a la función para mostrar el mensaje al cargar la página (simulando una condición de error)
+mostrarMensajeTemporal();
+
+
+ </script>
+  {% endblock %}

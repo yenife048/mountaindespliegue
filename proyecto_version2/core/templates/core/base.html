@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="images/favicon.png" type="">
+
+  <title>{% block title%}Mountain Burguer{% endblock %}</title>
+    <!--cargando recursos estaticos-->
+    {% load static %}
+  <!-- bootstrap core css -->
+  <link href="{% static 'core/css/bootstrap.css' %}" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <!-- nice select  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
+  <!-- font awesome style -->
+  <link href="{% static 'core/css/font-awesome.min.css' %}" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="{% static 'core/css/style.css' %}" rel="stylesheet">
+  <!-- responsive style -->
+  <link href="{% static 'core/css/responsive.css' %}" rel="stylesheet">
+
+  <link rel="icon" type="image/x-icon" href="https://lh3.googleusercontent.com/a-/ACNPEu9GZHrKrtSnls8Dw3cP33LEzVfCeAo26wfF7FHL=w83-h83-p-rp-mo-br100">
+
+</head>
+
+<body>
+
+  <div class="hero_area">
+    <div class="bg-box">
+      <img src="{% static 'core/img/fondo.jpg'%}" alt="" id="fondo">
+    </div>
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="{% url 'inicio' %}">
+            <span>
+              MOUNTAIN BURGUER
+            </span>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav  mx-auto ">
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'inicio' %}">Inicio <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'inicio' %}">Menú</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'acerca' %}">Acerca de</a>
+              </li>
+              {% if request.user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'sugerencia' %}">Sugerencia</a>
+              </li>
+              {% endif %}
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="#" onclick="mostrarVentanaEmergente()">Cerrar Sesión</a></li>
+                {% endif %}
+            </ul>
+            <div class="user_option">
+              {% if not request.user.is_authenticated %}
+              <a href="{% url 'login' %}" class="user_link">
+                <i class="fa fa-user" aria-hidden="true"></i>
+              </a>
+              {% endif %}
+              <a class="cart_link" href="{% url 'car' %}">
+                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                  <g>
+                    <g>
+                      <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
+                   c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
+                    </g>
+                  </g>
+                  <g>
+                    <g>
+                      <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
+                   C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
+                   c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
+                   C457.728,97.71,450.56,86.958,439.296,84.91z" />
+                    </g>
+                  </g>
+                  <g>
+                    <g>
+                      <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
+                   c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
+                    </g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+    <!--ventana de cerrar sesion-->
+<div class="modal" id="overlay">
+  <div class="modal-content">
+    <p>¿Estás seguro de que deseas cerrar sesión?</p>
+      <div class="button-container">
+        <button onclick="cerrarSesion()" class="btn btn-danger">Aceptar</button>
+          <button onclick="ocultarVentanaEmergente()"class="btn btn-dark">Cancelar</button>
+      </div>
+  </div>
+</div>
+
+    <!-- slider section -->
+    <section class="slider_section ">
+      <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="container ">
+              <div class="row">
+                <div class="col-md-7 col-lg-6 ">
+                  <div class="detail-box">
+                    <h1>
+                      MB Comidas Rapidas
+                    </h1>
+                    <p>
+                      Los amigos te compran una hamburguesa. Los mejores amigos se comen tu hamburguesa.                    </p>
+                    <div class="btn-box">
+                      <a href="{% url 'acerca' %}" class="btn1">
+                        Saber Más
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item ">
+            <div class="container ">
+              <div class="row">
+                <div class="col-md-7 col-lg-6 ">
+                  <div class="detail-box">
+                    <h1>
+                      MB Sugerencias
+                    </h1>
+                    <p>
+                      Gracias por ser parte de nuestra comunidad y por ayudarnos a crecer y evolucionar. Esperamos con ansias escuchar todas sus increíbles ideas.                    </p>
+                    <div class="btn-box">
+                      <a href="{% url 'sugerencia' %}" class="btn1">
+                        Dar Sugerencia
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="container ">
+              <div class="row">
+                <div class="col-md-7 col-lg-6 ">
+                  <div class="detail-box">
+                    <h1>
+                      MB MENÚ
+                    </h1>
+                    <p>
+                      Nuestro menú está diseñado para transportarte directamente a las vibrantes calles de comidas rapidas, donde los aromas y los colores se mezclan en una danza deliciosa.                    </p>
+                    <div class="btn-box">
+                      <a href="{% url 'inicio' %}" class="btn1">
+                        Ir al Menú
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <ol class="carousel-indicators">
+            <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
+            <li data-target="#customCarousel1" data-slide-to="1"></li>
+            <li data-target="#customCarousel1" data-slide-to="2"></li>
+          </ol>
+        </div>
+      </div>
+
+    </section>
+    <!-- end slider section -->
+  </div>
+
+
+
+  {% block content%}
+
+  {% endblock %}
+
+ <!-- footer section -->
+ <footer class="footer_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 footer-col">
+          <div class="footer_contact">
+            <h4>
+              Contactanos
+            </h4>
+            <div class="contact_link_box">
+              <a target="_blank" href="https://www.google.com/maps/uv?pb=!1s0x8e38c1227a075b19%3A0xa1060376879b4773!3m1!7e115!4s%2Fmaps%2Fplace%2Fmountain%2Bburger%2Bibagu%25C3%25A9%2Bfotos%2F%404.5101565%2C-75.2999372%2C3a%2C75y%2C249.38h%2C90t%2Fdata%3D*213m4*211e1*213m2*211s7J1f73j_zNgc7E515bC55Q*212e0*214m2*213m1*211s0x8e38c1227a075b19%3A0xa1060376879b4773%3Fsa%3DX%26ved%3D2ahUKEwj4ybPK4YWBAxUekmoFHdWSA9QQpx96BAhCEAA!5smountain%20burger%20ibagu%C3%A9%20fotos%20-%20Buscar%20con%20Google!15sCgIgAQ&imagekey=!1e2!2s7J1f73j_zNgc7E515bC55Q&hl=es&sa=X&ved=2ahUKEwj4ybPK4YWBAxUekmoFHdWSA9QQpx96BAhcEA0">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                  Ubicación
+                </span>
+              </a>
+              <a target="_blank" href="https://api.whatsapp.com/send/?phone=3144126668">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Cel +57 314 412 66 68
+                </span>
+              </a>
+              <a target="_blank" href="https://mail.google.com/mail/?view=cm&to=mountainburguer9@gmail.com">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                  mountainburguer9@gmail.com
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <div class="footer_detail">
+            <a href="" class="footer-logo">
+              Mountain Burguer
+            </a>
+            <p>
+              "Un mundo de sabores en cada bocado: donde la rapidez se combina con la delicia en cada rincón de nuestro menú."            </p>
+            <div class="footer_social">
+              <a target="_blank" href="https://es-la.facebook.com/madelunaburger">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a target="_blank" href="https://www.youtube.com/watch?v=x-xpWDn1RcE&ab_channel=MountainBurguer-Tolima">
+                <i class="fa fa-youtube" aria-hidden="true"></i>
+              </a>
+              <a target="_blank" href="https://mail.google.com/mail/?view=cm&to=mountainburguer9@gmail.com">
+                <i class="fa fa-google" aria-hidden="true"></i>
+              </a>
+              <a target="_blank" href="https://api.whatsapp.com/send/?phone=3144126668">
+                <i class="fa fa-whatsapp" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <h4>
+            Horario Restaurante
+          </h4>
+          <p>
+            Lunes - Viernes
+          </p>
+          <p>
+            04.00 Pm -12.00 Am
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- footer section -->
+
+  <!-- jQery -->
+  <script src="{% static 'core/js/jquery-3.4.1.min.js' %}"></script>
+  <!-- popper js -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <!-- bootstrap js -->
+  <script src="{% static 'core/js/bootstrap.js' %}"></script>
+  <!-- owl slider -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+  </script>
+  <!-- isotope js -->
+  <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+  <!-- nice select -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+  <!-- custom js -->
+  <script src="{% static 'core/js/custom.js' %}"></script>
+  <!-- Google Map -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
+  </script>
+  <!-- End Google Map -->
+
+
+  <script>
+    // Función para mostrar la ventana emergente
+ function mostrarVentanaEmergente() {
+   var overlay = document.getElementById('overlay');
+   overlay.style.display = 'block';
+ }
+ 
+ // Función para ocultar la ventana emergente
+ function ocultarVentanaEmergente() {
+   var overlay = document.getElementById('overlay');
+   overlay.style.display = 'none';
+ }
+ 
+ // Función para cerrar sesión
+ function cerrarSesion() {
+   // Aquí puedes agregar la lógica para cerrar sesión, por ejemplo, redirigir a la página de logout.
+   window.location.href = "{% url 'logout' %}";
+   /*alert("Sesión cerrada correctamente.");*/
+   ocultarVentanaEmergente();
+ }
+
+ </script>
+
+</body>
+
+</html>

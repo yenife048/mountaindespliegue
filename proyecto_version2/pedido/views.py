@@ -5,6 +5,8 @@ from django.urls import reverse
 from carro.carro import Carro
 from carro.context_processor import importe_total_carro
 from django.core.mail import send_mail
+from .models import Pedido, LineaPedido,Venta,hamburguesas
+
   
 def enviar_confirmacion_remitente(email_remitente, contenido):
     # Ingresa aquí la dirección de correo electrónico desde la que deseas enviar el correo de confirmación
@@ -44,6 +46,17 @@ def pedidos(request):
             indicaciones = request.POST.get('indicaciones','')    
             pagos = pedido_form.cleaned_data['pagos']
             codigo = request.POST.get('codigo','')
+            
+            
+            
+             # Crea una instancia del modelo Pedido
+            pedido = Pedido(
+                user=request.user if request.user.is_authenticated else None,
+            )
+
+            pedido.save()  # Guarda el pedido en la base de datos
+            
+            
              
             cart_items = carro.carro.values()
             
@@ -55,6 +68,9 @@ def pedidos(request):
             total_pagar= f"Debe pagar: {total['importe_total_carro']:.3f} $"
 
             for item in cart_items:
+                producto = hamburguesas.objects.get(pk=item['hamburguesas_id'])
+                cantidad_vendida = item['cantidad']
+                Venta.objects.create(usuario=request.user, producto=producto, cantidad_vendida=cantidad_vendida)
                 message += f"- {item['nombre']}: Cantidad: {item['cantidad']}, Precio: {float(item['precio']):.3f} $ \n"
             
             email_destinatario = "yenyadrada@misena.edu.co"   

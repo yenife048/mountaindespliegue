@@ -25,14 +25,15 @@ class Pedido(models.Model):
         )["total"] or FloatField(0)
 
     def __str__(self):
-        return self.id
+        return f'Pedido #{self.id} - Usuario: {self.user.username}'
 
 
     class Meta:
         db_table='pedidos'
         verbose_name='Pedido'
         verbose_name_plural='Pedidos'
-        ordering=['id']
+        ordering=["created"]
+
 
 class LineaPedido(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)
@@ -49,3 +50,11 @@ class LineaPedido(models.Model):
         verbose_name='Línea Pedido'
         verbose_name_plural='Líneas Pedidos'
         ordering=['id']
+    
+#se acreca un models de ventas
+
+class Venta(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    producto = models.ForeignKey(hamburguesas, on_delete=models.CASCADE)
+    cantidad_vendida = models.PositiveIntegerField()
+    fecha_venta = models.DateTimeField(auto_now_add=True)
